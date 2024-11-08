@@ -14,70 +14,13 @@ class HomeButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locationProvider = Provider.of<LocationProvider>(context, listen: true);
-
+    final screenWidth = MediaQuery.of(context).size.width;
+    print('checkkk media query width $screenWidth');
     return Container(
       color: Colors.black87,
-      child: Column(
-        children: [
-          ButtonTile(
-            color: CupertinoColors.activeBlue,
-            text: 'Request Location Permission',
-            callBack: () => LocationService().requestLocationPermission(context),
-          ),
-          ButtonTile(
-            color: Colors.yellow,
-            text: 'Request Notification Permission',
-            callBack: () => NotificationService().requestNotificationPermission(context),
-          ),
-          ButtonTile(
-            color: Colors.green,
-            text: 'Start Location Update',
-            callBack: () => _startLocationUpdateButton(context, locationProvider),
-          ),
-          ButtonTile(
-            color: Colors.redAccent,
-            text: 'Stop Location Update',
-            callBack: () => _stopLocationUpdateButton(context, locationProvider),
-          ),
-        ],
-      ),
+      width: screenWidth,
+      child: screenWidth < 600 ? const _MobileView() : const _TabOrWebView(),
     );
-  }
-
-  _startLocationUpdateButton(
-    BuildContext context,
-    LocationProvider locationProvider,
-  ) async {
-    if (await Permission.notification.isDenied) {
-      if (context.mounted) {
-        showToast(context, 'Turn on Notification Permission');
-      }
-      return;
-    }
-    if (await Permission.location.isDenied) {
-      if (context.mounted) {
-        showToast(context, 'Turn on Location Permission');
-      }
-      return;
-    }
-
-    if (!await showPlatformAlert(title: 'Alert', message: 'Do you want to start?')) {
-      return;
-    }
-    locationProvider.startLocationUpdates();
-
-    NotificationService().showStartNotification();
-
-    if (context.mounted) {
-      showToast(context, 'Live Location will be updated every 10 seconds', duration: const Duration(seconds: 2));
-    }
-  }
-
-  _stopLocationUpdateButton(BuildContext context, LocationProvider locationProvider) {
-    locationProvider.stopLocationUpdates();
-    showToast(context, 'Location service has been stopped');
-    NotificationService().showStopNotification();
   }
 }
 
@@ -109,4 +52,121 @@ class ButtonTile extends StatelessWidget {
       ),
     );
   }
+}
+
+class _MobileView extends StatelessWidget {
+  const _MobileView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context, listen: true);
+    return Column(
+      children: [
+        ButtonTile(
+          color: CupertinoColors.activeBlue,
+          text: 'Request Location Permission',
+          callBack: () => LocationService().requestLocationPermission(context),
+        ),
+        ButtonTile(
+          color: Colors.yellow,
+          text: 'Request Notification Permission',
+          callBack: () => NotificationService().requestNotificationPermission(context),
+        ),
+        ButtonTile(
+          color: Colors.green,
+          text: 'Start Location Update',
+          callBack: () => _startLocationUpdateButton(context, locationProvider),
+        ),
+        ButtonTile(
+          color: Colors.redAccent,
+          text: 'Stop Location Update',
+          callBack: () => _stopLocationUpdateButton(context, locationProvider),
+        ),
+      ],
+    );
+  }
+}
+
+class _TabOrWebView extends StatelessWidget {
+  const _TabOrWebView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context, listen: true);
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: ButtonTile(
+                color: CupertinoColors.activeBlue,
+                text: 'Request Location Permission',
+                callBack: () => LocationService().requestLocationPermission(context),
+              ),
+            ),
+            Expanded(
+              child: ButtonTile(
+                color: Colors.yellow,
+                text: 'Request Notification Permission',
+                callBack: () => NotificationService().requestNotificationPermission(context),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: ButtonTile(
+                color: Colors.green,
+                text: 'Start Location Update',
+                callBack: () => _startLocationUpdateButton(context, locationProvider),
+              ),
+            ),
+            Expanded(
+              child: ButtonTile(
+                color: Colors.redAccent,
+                text: 'Stop Location Update',
+                callBack: () => _stopLocationUpdateButton(context, locationProvider),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+_startLocationUpdateButton(
+  BuildContext context,
+  LocationProvider locationProvider,
+) async {
+  if (await Permission.notification.isDenied) {
+    if (context.mounted) {
+      showToast(context, 'Turn on Notification Permission');
+    }
+    return;
+  }
+  if (await Permission.location.isDenied) {
+    if (context.mounted) {
+      showToast(context, 'Turn on Location Permission');
+    }
+    return;
+  }
+
+  if (!await showPlatformAlert(title: 'Alert', message: 'Do you want to start?')) {
+    return;
+  }
+  locationProvider.startLocationUpdates();
+
+  NotificationService().showStartNotification();
+
+  if (context.mounted) {
+    showToast(context, 'Live Location will be updated every 10 seconds', duration: const Duration(seconds: 2));
+  }
+}
+
+_stopLocationUpdateButton(BuildContext context, LocationProvider locationProvider) {
+  locationProvider.stopLocationUpdates();
+  showToast(context, 'Location service has been stopped');
+  NotificationService().showStopNotification();
 }
