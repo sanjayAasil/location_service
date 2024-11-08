@@ -3,6 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
+
+	<key>NSUserNotificationAlertStyle</key>
+    <string>alert</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need access to your location to provide location-based features.</string>
+
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

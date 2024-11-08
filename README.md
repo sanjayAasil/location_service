@@ -1,16 +1,27 @@
-# location_service
+Flutter Location and Notification Permission App
+This app demonstrates:
 
-A new Flutter project.
+1.UI Design: Follows the provided layout with responsive design using MediaQuery.
+2.Location & Notification Permissions: Buttons to request location and notification permissions.
+3.Location Updates:
+   Start/stop location updates with confirmation dialog.
+   Displays notifications for starting/stopping updates.
+   Saves location data to SharedPreferences every 10 seconds and shows it on the screen.
 
-## Getting Started
+Setup
+Dependencies
+   pubspec.yaml
+ 
+   permission_handler: ^10.2.0
+   geolocator: ^10.1.0
+   shared_preferences: ^2.1.0
+   flutter_local_notifications: ^13.0.0
 
-This project is a starting point for a Flutter application.
+Permissions Configuration
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   Android: Add location, notification permissions in AndroidManifest.xml.
+   iOS/macOS: Add usage descriptions in Info.plist.
+   Run the App
+  
+   
+   flutter run

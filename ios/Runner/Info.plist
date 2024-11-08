@@ -3,6 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
+
+	<key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need access to your location to provide notifications</string>
+    <key>NSUserNotificationAlertStyle</key>
+    <string>alert</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need access to your location to provide location-based features.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>We need access to your location even when the app is in the background.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location to provide continuous location-based features.</string>
+
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Location Service</string>
