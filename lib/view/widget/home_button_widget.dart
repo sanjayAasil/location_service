@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-
 import '../../common/global.dart';
 import '../../provider/location_service_provider.dart';
 import '../../service/location_service.dart';
@@ -82,6 +80,7 @@ class _MobileView extends StatelessWidget {
           text: 'Stop Location Update',
           callBack: () => _stopLocationUpdateButton(context, locationProvider),
         ),
+        const SizedBox(height: 10),
       ],
     );
   }

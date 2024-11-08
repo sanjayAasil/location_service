@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     positions = Provider.of<LocationProvider>(context).positions;
-
+    final screenWidth = MediaQuery.of(context).size.width;
     print('Checkkk build: positions length ${positions.length}');
     return Scaffold(
       appBar: AppBar(
@@ -77,12 +77,35 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 Position? position = positions[index];
                 if (position == null) return const SizedBox();
-                return LocationInfoTile(
-                  count: index + 1,
-                  lat: position.latitude,
-                  lng: position.longitude,
-                  speed: position.speed,
-                );
+                if (screenWidth < 600) {
+                  return LocationInfoTile(
+                    count: index + 1,
+                    lat: position.latitude,
+                    lng: position.longitude,
+                    speed: position.speed,
+                  );
+                } else {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: LocationInfoTile(
+                          count: index + 1,
+                          lat: position.latitude,
+                          lng: position.longitude,
+                          speed: position.speed,
+                        ),
+                      ),
+                      Expanded(
+                        child: LocationInfoTile(
+                          count: index + 1,
+                          lat: position.latitude,
+                          lng: position.longitude,
+                          speed: position.speed,
+                        ),
+                      )
+                    ],
+                  );
+                }
               },
             ),
           ),

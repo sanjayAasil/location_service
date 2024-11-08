@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class LocationInfoTile extends StatelessWidget {
   final int count;
   final double lat;
@@ -19,7 +18,6 @@ class LocationInfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
       ),
@@ -43,6 +41,7 @@ class LocationInfoTile extends StatelessWidget {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Text('Lat: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(lat.toString()),
